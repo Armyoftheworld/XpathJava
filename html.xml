@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.juziwl.xiaoxin">
+
+    <uses-sdk tools:overrideLibrary="cn.jpush.android.thirdpush.xiaomi,
+        cn.jpush.android.thirdpush.oppo,
+        cn.jpush.android.thirdpush.huawei,
+        cn.jpush.android.thirdpush.meizu,
+        cn.jpush.android.thirdpush.fcm,
+        com.huawei.android.hms.push,
+        com.huawei.android.hms.base" />
+
+    <!-- 地图包、搜索包需要的基础权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REAL_" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application
+            android:name=".config.App"
+            android:allowBackup="true"
+            android:icon="${app_icon}"
+            android:label="${app_name}"
+            android:supportsRtl="true">
+
+        <!-- 极光配置小米推送  start -->
+        <receiver
+                android:name="cn.jpush.android.service.PluginXiaomiPlatformsReceiver"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+                android:name="XIAOMI_APPKEY"
+                android:value="MI-${MIPUSH_APPKEY}" />
+        <meta-data
+                android:name="XIAOMI_APPID"
+                android:value="MI-${MIPUSH_APPID}" />
+        <!-- 极光配置小米推送  end -->
+
+
+        <!-- 极光配置华为推送  start -->
+        <receiver android:name="cn.jpush.android.service.PluginHuaweiPlatformsReceiver">
+            <intent-filter>
+
+                <!-- 必须,⽤于接收token -->
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+                <!-- 必须,⽤于接收消息 -->
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
+                <!-- 可选,⽤于点击通知栏或通知栏上的按钮后触发onEvent回调 -->
+                <action android:name="com.huawei.android.push.intent.CLICK" />
+                <!-- 可选,查看push通道是否连接,不查看则不需要 -->
+                <action android:name="com.huawei.intent.action.PUSH_STATE" />
+            </intent-filter>
+            <intent-filter>
+                this is test data
+            </intent-filter>
+
+            <meta-data
+                    android:name="CS_cloud_ablitity"
+                    android:value="successRateAnalytics" />
+        </receiver>
+
+        <meta-data
+                android:name="com.huawei.hms.client.appid"
+                android:value="appid=${HUAWEI_APPID}" />
+        <!-- 极光配置华为推送  end -->
+
+        <!-- 极光配置oppo推送  start-->
+        <!-- 极光配置oppo推送  end  -->
+
+        <meta-data
+                android:name="com.tencent.rdm.uuid"
+                android:value="${tencent_uuid}" />
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_APPKEY" -->
+        <!-- android:value="${umeng_appkey}" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_CHANNEL" -->
+        <!-- android:value="umeng" /> -->
+
+
+        <!-- 、、微信测试端包名回调com.juziwl.exue_comprehensive.wxapi.WXEntryActivityactivity -->
+        <activity
+                android:name=".test.wxapi.WXEntryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <receiver android:name=".ui.myspace.util.NetworkChangeListener" />
+
+        <activity
+                android:name=".ui.schoollivebroadcast.activity.ELiveActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize|stateAlwaysHidden|stateHidden" />
+        <activity
+                android:name=".ui.schoollivebroadcast.activity.PayActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize|stateAlwaysHidden|stateHidden" />
+        <activity
+                android:name=".ui.schoollivebroadcast.activity.BillActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.schoollivebroadcast.activity.WriteOrderActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.heavencourse.activity.AllCourseActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait" />
+        <activity android:name=".ui.heavencourse.activity.HeavenCourseServiceActivity" />
+        <activity
+                android:name=".ui.heavencourse.activity.HeavenCourseActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity android:name=".ui.askandanswer.activity.AskAndAnswerListActivity" />
+        <activity android:name=".ui.askandanswer.activity.AskAndAnswerDailyPagerActivity" />
+        <activity android:name=".ui.askandanswer.activity.AskAndAnswerSearchActivity" />
+        <activity android:name=".ui.askandanswer.activity.AskAndAnswerDetailActivity" />
+        <activity android:name=".ui.askandanswer.activity.PublishAskAndAnswerActivity" />
+        <activity
+                android:name=".ui.schoollivebroadcast.activity.LiveServiceActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myspace.activity.PublishDynamicActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateVisible" />
+        <activity
+                android:name=".ui.myspace.activity.DynamicBodyActivity2"
+                android:configChanges="orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize" />
+        <activity
+                android:name=".ui.myspace.activity.DianzanActivity"
+                android:configChanges="orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize" />
+        <activity
+                android:name=".ui.myspace.activity.SelectClassActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize" />
+        <activity
+                android:name=".ui.myspace.activity.GiftInforActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <!-- 成绩 -->
+        <activity
+                android:name=".ui.score.activity.ClassScoreActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.score.activity.ExamListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.score.activity.PersonalScoreActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.air.activity.AirClassRoomActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+
+        <!-- 钱包 -->
+        <activity
+                android:name=".ui.myself.account.accountactivity.AccountActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.account.detailaccount.activity.AccountDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.account.getcash.activity.GetCashActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.account.bankcard.activity.AddBankCardActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.account.bankcard.activity.BankCardActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.account.redpacket.activity.RedPacketActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.account.getcash.activity.SelectBankActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.account.cardcoupon.activity.CardCouponActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+
+        <!-- 积分商城 -->
+        <activity
+                android:name=".ui.myself.integralshop.confirmorder.activity.ComfirmOrderActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".zxing.CaptureActivity"
+                android:clearTaskOnLaunch="true"
+                android:screenOrientation="sensorPortrait"
+                android:stateNotNeeded="true"
+                android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+                android:name=".ui.myspace.activity.SendGiftActivity2"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myspace.activity.SpaceShopActivity2"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myspace.activity.OthersGiftInforActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.ScoreDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.MyOrderActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.MyOrderInforActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.MyGiftActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.TodayTaskActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.ChooseFriendActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.schoollivebroadcast.activity.MoreReplyActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.PublishHomeworkActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+                android:name=".ui.homework.activity.HomeworkSelectClassActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.productdetail.activity.ProductDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.paysuccess.activity.PaySuccessActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.coach.searchresult.activity.SearchResultActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.productpay.activity.ProductPayActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.HomeworkSelectExaminationActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.HomeworkSelectTeachUnitActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.QuestionHomeworkStudentAnswerConditionActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.QuestionHomeworkStudentSubjectDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.QuestionHomeworkUnCommitActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.QuestionsHomeworkDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.QuestionsHomeworkRequireActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.QuestionHomeworkSubjectAnswerDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.TeaOutCourseHomeworkDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.ParQuestionHomeworkNotFinishDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.ParCommitOrCorrentOutCourseHomeworkDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.ParQuestionHomeworkPracticeActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.ParUncommitOutCourseHomeworkDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+                android:name=".ui.homework.activity.ParQuestionsHomeworkDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.ParQuestionHomeworkStudentSubjectDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.personal.phone.activity.MyPhoneNumberActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.personal.phone.activity.ModifyPhoneVerfityActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.personal.phone.activity.ModifyPhoneNumberActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.notice.activitiy.PublishNoticeActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+                android:name=".ui.notice.activitiy.SelectClassActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.ParQuestionsHomeworkDescMentionActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.teach.activity.AddUploadMaterialActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.teach.activity.UploadMaterialActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.notice.activitiy.NoticeListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:hardwareAccelerated="false"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.notice.activitiy.DetailsInforActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.msg.activity.SystemMsgActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.learningstatus.activity.TeaStudentNeedKnowledgeActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.learningstatus.activity.ImproveRecordActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.learningstatus.activity.ParentStudentNeedKnowledgeActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.onecardsolution.activity.OneCardActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.onecardsolution.activity.RechargeActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.DevelopingActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ParErrorBookDetailsActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ParErrorBookListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ParErrorBookMainActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ParErrorFilterActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ParErrorReviewActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ParErrorReviewReportActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.LearnReportActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.PractiseRecordActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.SpecialPractiseActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.PractiseReportDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.addresss.ChooseAddressActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myspace.activity.SelectClassGrowthActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.smalle.activity.EsmallTopLineActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+
+        <service android:name=".config.InitService" />
+
+        <!-- qq精简版： -->
+        <activity
+                android:name="com.tencent.tauth.AuthActivity"
+                android:launchMode="singleTask"
+                android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="${tencentId}" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.learningstatus.activity.KnowledgeMasterActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.learningstatus.activity.EveryKnowledgeDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.NewBieTaskActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ReceiveTelephoneMoneyActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ReceiveTelephoneSuccessActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ReceiveErrorQuestionActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.errorcorrection.activity.ErrorCorrectionActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.ScoreDetailNewActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".pay.activity.AllPayActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".pay.activity.BecomeVipSuccessActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".pay.activity.GroupBuySuccessActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.ECourseMainActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.BuyEcourseDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.ETeacherIntroduceActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.EVideoBroadCastActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.FindCourseMainActivityActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden" />
+        <activity
+                android:name=".ui.ecourse.activity.CollectionCourseActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.AttentionTeacherActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.TeacherListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.OrganizationListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.EorderActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.ReplyActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.ReplyNextActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+                android:name=".ui.ecourse.activity.TeacherIntroduceDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.BuyPeriodDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.ECourseVideoPlayActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.ecourse.activity.EcoursePdfPlayActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.HomeworkListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.learningstatus.activity.ParentLearningStatusActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.NewParentQuestionHomeworkNotFinishDescActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.NewQuestionHomeworkPracticeActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.NewParentQuestionHomeworkResultActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.NewParentQuestionHomeworkAnswerDetailActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.HomeworkAnswerCardActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ParErrorBookMainNewActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.SubjectErrorListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.CorrectErrorQuestionActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ErrorBookAnswerActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.CorrectErrorSummaryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.ErrorSummaryAnswerListActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.homework.activity.HomeworkCorrectErrorSummaryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.TeaLearningStatusActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.main.activity.NewTeachActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myspace.activity.MySpaceActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myspace.activity.NewSpaceSelectClassActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name="com.facebook.react.devsupport.DevSettingsActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name="com.ecourseapp.MainActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:theme="@style/ecourse_style"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".pay.activity.NewPayActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".pay.activity.DrawBillActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+                android:name=".pay.activity.DrawBillHistoryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".pay.activity.BuyServiceRecordActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".pay.activity.BillDetailInfoActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.cardpackage.activity.CardPackageContainerActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name="com.ecourseapp.ActivityPool.activity.VideoPlayerWithControllerActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="landscape" />
+        <activity
+                android:name=".pay.activity.ChoosePayStudentActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.myself.integralshop.mall.activity.SearchFriendActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait" />
+    </application>
+
+</manifest>
